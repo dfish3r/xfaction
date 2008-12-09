@@ -143,6 +143,9 @@ function init() {
     srcW = opener.top;
 
   updateBookmarks();
+
+  document.forms[0].nick.value = srcW.nick;
+  document.forms[0].server.value = srcW.DEFAULTCONFERENCESERVER;
 }
 
 function keyPressed(e) {
@@ -170,10 +173,10 @@ onload = init;
           <tr><td colspan="2"><hr noshade size="1"></td></tr>
           <tr><td>Name</td><td><input type="text" name="save_bookmark_as" size="32" style="width: 100%;"></td></tr>
           <tr><td colspan="2"><hr noshade size="1"></td></tr>
-          <tr><td nowrap>Nickname</td><td width="100%"><input type="text" name="nick" size="32" style="width:100%;"></td></tr>
+          <tr style="display:none;"><td nowrap>Nickname</td><td width="100%"><input type="text" name="nick" size="32" style="width:100%;"></td></tr>
           <tr><td nowrap>Room</td><td width="100%"><input type="text" name="group" size="32" style="width:100%;"></td></tr>
-          <tr><td nowrap>Server</td><td width="100%"><input type="text" name="server" size="32" style="width:100%;"></td></tr>
-          <tr><td nowrap>Password</td><td width="100%"><input type="text" name="pass" size="32" style="width:100%;"></td></tr>
+          <tr style="display:none;"><td nowrap>Server</td><td width="100%"><input type="text" name="server" size="32" style="width:100%;"></td></tr>
+          <tr style="display:none;"><td nowrap>Password</td><td width="100%"><input type="text" name="pass" size="32" style="width:100%;"></td></tr>
           <tr><td nowrap>Autojoin</td><td><input type="checkbox" name="autojoin"></td></tr>
       </table>
       <div align="right" id="buttonbox">
