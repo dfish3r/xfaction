@@ -26,7 +26,33 @@
  * Have a look at the README for hints and troubleshooting!
  */
 
-var SITENAME = "localhost";
+var SITENAME = "xfaction.net";
+
+var SS_REALMS = [ 
+  'Andorhal',
+  'Anetheron',
+  'Archimonde',
+  'BDF',
+  'Dalaran',
+  'Dalvengyr',
+  'Dentarg',
+  'Duskwood',
+  'Executus',
+  'Haomarush',
+  'Khadgar',
+  'MalGanis',
+  'Norgannon',
+  'Scilla',
+  'SWC',
+  'Thrall',
+  'Turalyon',
+  'Ysera',
+  'Ysondre',
+  'Zuluhed'
+];
+var REALMS = new Array();
+REALMS = REALMS.concat(SS_REALMS);
+REALMS.sort();
 
 /* BACKENDS
  * Array of objects each describing a backend.
