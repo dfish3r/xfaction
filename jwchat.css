@@ -205,3 +205,10 @@ h3 {
   font-size: 1.0em; 
   font-style: italic;
 }
+
+.status_select { font-size: 0.85em; border: 1px solid black; }
+.status_available { color: black; }
+.status_away { color: gray; }
+.status_xa { color: gray; text-decoration: line-through;}
+.status_dnd { color: darkred; text-decoration: line-through;}
+
