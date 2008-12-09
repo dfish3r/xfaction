@@ -12,6 +12,7 @@ function genJabberXDataTable(x) {
 	html += '<table width="100%">';
 	for (var i=0; i<x.getElementsByTagName('field').length; i++) {
 		var aField = x.getElementsByTagName('field').item(i);
+                if (aField.getAttribute('label') == 'User') {
  		html += "<tr>";
 		switch (aField.getAttribute('type')) {
 		case 'hidden':
@@ -103,6 +104,7 @@ function genJabberXDataTable(x) {
 			break;
 		}
  		html += "</tr>";
+		}
 	}
 	html += "</table>";
 
