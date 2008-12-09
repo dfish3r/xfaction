@@ -263,6 +263,11 @@ function msgboxKeyDown(el,e) {
 	return true;
 }
 
+function setStatus(sel) {
+  if (sel.value && sel.value != 'noop')
+    parent.srcW.changeStatus(sel.value, sel.options[sel.selectedIndex].text);
+}
+
 onunload = cleanUp
       //-->
     </script>
@@ -274,7 +279,14 @@ onunload = cleanUp
             <td width="100%"><textarea id="msgbox" wrap="virtual" style="width:100%;height:100%;" tabindex=1 onKeyPress="return msgboxKeyPressed(this,event);" onKeyDown="return msgboxKeyDown(this,event);"></textarea></td></tr>
           <tr><td height=5></td></tr>
           <tr>
-            <td align="right"><button id="config_chan_button" onClick="return parent.openConfig();" style="display:none;" tabindex=5>Config</button>&nbsp;<span id="register_room_span" style="display:none;"><button id="register_room_button" onClick="return openRegisterRoom();" tabindex=4>Register</button>&nbsp;</span><button id="invite_button" onClick="return openInvite();" tabindex=3>Invite</button>&nbsp;<button id='submit' name='submit' type='submit' onClick="return submitClicked();" tabindex=2>Send</button></td></tr>
+            <td>
+              <table width="100%">
+                <tr>
+                  <td><select class="status_select" onChange="setStatus(this);"><option value="noop" selected>Status:</option><option value="available" class="status_available">online</option><option value="xa" class="status_xa">AFK</option><option value="dnd" class="status_dnd">DND</option><option value="away" class="status_away">Arena</option><option value="away" class="status_away">WSG 1</option><option value="away" class="status_away">WSG 2</option><option value="away" class="status_away">WSG 3</option><option value="away" class="status_away">WSG 4</option><option value="away" class="status_away">WSG 5</option><option value="away" class="status_away">WSG 6</option><option value="away" class="status_away">WSG 7</option><option value="away" class="status_away">WSG 8</option><option value="away" class="status_away">AB 1</option><option value="away" class="status_away">AB 2</option><option value="away" class="status_away">AB 3</option><option value="away" class="status_away">AB 4</option><option value="away" class="status_away">AB 5</option><option value="away" class="status_away">AB 6</option><option value="away" class="status_away">AB 7</option><option value="away" class="status_away">AB 8</option></select></td>
+                  <td align="right"><button id="config_chan_button" onClick="return parent.openConfig();" style="display:none;" tabindex=5>Config</button>&nbsp;<span id="register_room_span" style="display:none;"><button id="register_room_button" onClick="return openRegisterRoom();" tabindex=4>Register</button>&nbsp;</span><button id="invite_button" onClick="return openInvite();" tabindex=3>Invite</button>&nbsp;<button id='submit' name='submit' type='submit' onClick="return submitClicked();" tabindex=2>Send</button></td></tr>
+              </table>
+            </td>
+          </tr>
       </table>
     </form>
   </body>
