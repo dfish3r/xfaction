@@ -100,7 +100,8 @@ function getQueryResult(iq) {
 			html += "<tr>";
 			for (var i=0 ; i<x.getElementsByTagName('reported').item(0).getElementsByTagName('field').length; i++) {
 				var aField = x.getElementsByTagName('reported').item(0).getElementsByTagName('field').item(i);
-				html += "<th var='"+aField.getAttribute('var')+"' nowrap>"+aField.getAttribute('label')+"</th>";
+                                if (aField.getAttribute('label') == 'Jabber ID')
+                                  html += "<th var='"+aField.getAttribute('var')+"' nowrap>"+aField.getAttribute('label')+"</th>";
 			}
 			html += "</tr>";
 
@@ -111,14 +112,16 @@ function getQueryResult(iq) {
 				html += "<tr>";
 				for (var j=0 ; j<x.getElementsByTagName('reported').item(0).getElementsByTagName('field').length; j++) {
 					var rField = x.getElementsByTagName('reported').item(0).getElementsByTagName('field').item(j);
+                                        if (rField.getAttribute('label') == 'Jabber ID') {
 					for (var k=0; k<item.getElementsByTagName('field').length; k++) {
 						var iField = item.getElementsByTagName('field').item(k);
 						if (rField.getAttribute('var') == iField.getAttribute('var')) { // matched
 							if (!iField.firstChild.firstChild)
 								html += "<td>&nbsp;</td>";
 							else
-								html += "<td nowrap>"+iField.firstChild.firstChild.nodeValue+"</td>";
+								html += "<td nowrap align=center>"+iField.firstChild.firstChild.nodeValue+"</td>";
 						}
+					}
 					}
 				}
 				
@@ -259,6 +262,10 @@ function init() {
 	break;
       }
     }
+    if (service.options.length == 2) {
+      service.options[1].selected = true;
+      serviceSelected(document.forms['service_select'].elements['service']);
+    }
   }
 }
 
@@ -306,7 +313,7 @@ onload = init;
 		</td></tr>
 		<tr><td align=right>
 		<hr noshade size="1">
-		<button id="info_button" onClick='return srcW.openUserInfo(resultF.selectedRow.childNodes[0].innerHTML);'><l>User Info<l></button>&nbsp;<button id="add_button" onClick='return srcW.openSubscription(resultF.selectedRow.childNodes[0].innerHTML);'><l>Add Contact<l></button>&nbsp;<button onClick='return back();'><l>Back<l></button>
+		<button id="info_button" style="display:none;" onClick='return srcW.openUserInfo(resultF.selectedRow.childNodes[0].innerHTML);'><l>User Info<l></button>&nbsp;<button id="add_button" onClick='return srcW.openSubscription(resultF.selectedRow.childNodes[0].innerHTML);'><l>Add Contact<l></button>&nbsp;<button onClick='return back();'><l>Back<l></button>
 		</td>
 		</tr>
 		<table>
