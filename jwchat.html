@@ -69,13 +69,14 @@ var disco; // holds information from service discovery
 
 var statusLed;
 var statusMsg;
+var nickName;
 
 var onlstatus = new Object();
 onlstatus["available"] = "online";
 onlstatus["chat"] = "free for chat";
 onlstatus["away"] = "away";
-onlstatus["xa"] = "not available";
-onlstatus["dnd"] = "do not disturb";
+onlstatus["xa"] = "AFK";
+onlstatus["dnd"] = "DND";
 onlstatus["invisible"] = "invisible";
 onlstatus["unavailable"] = "offline";
 
@@ -98,7 +99,7 @@ function openGroupchat(aJid,nick,pass) {
   }
   } catch(e) { Debug.log(e.message, 1); }
   if (!user.chatW || user.chatW.closed)
-    user.chatW = open("groupchat.html?jid="+escape(aJid)+"&nick="+escape(nick)+"&pass="+escape(pass),"gchatW"+makeWindowName(aJid+"/"+nick),"width=520,height=390,resizable=yes");
+    user.chatW = open("groupchat.html?jid="+escape(aJid)+"&nick="+escape(nick)+"&pass="+escape(pass),"gchatW"+makeWindowName(aJid+"/"+nick),"width=750,height=500,resizable=yes");
   user.chatW.focus();
 }
 
@@ -393,6 +394,8 @@ function changeStatus(val,away,prio) {
     statusMsg.value = away;
   else
     statusMsg.value = onlstatus[val];
+  if (onlclass[val])
+    nickName.className = onlclass[val];
 }
 
 /************************************************************************
@@ -1024,9 +1027,8 @@ function handleIQSet(iq) {
 function handleConError(e) {
   switch (e.getAttribute('code')) {
   case '401':
-    alert("Authorization failed");
-    if (!con.connected())
-      window.close();
+    alert("Authentication/Authorization failed");
+    window.close();
     break;
   case '409':
     alert("Registration failed!\n\nPlease choose a different username!");
@@ -1358,6 +1360,7 @@ function init() {
   /* get some refs to static elements */
   statusLed = frames["jwc_main"].document.getElementById('statusLed');
   statusMsg = frames["jwc_main"].document.getElementById('statusMsg');
+  nickName = frames["jwc_main"].document.getElementById('myNickname');
   fmd = frames["jwc_main"].iRoster.document;
   
   /* set title */
