@@ -44,6 +44,7 @@ function doSub() {
 function saveBookmark() {
   var bookmark = new Object();
 
+  document.forms[0].save_bookmark_as.value = document.forms[0].group.value;
   if (document.forms[0].save_bookmark_as.value == '') {
     alert("Please enter a name for this bookmark!");
     return false;
@@ -126,8 +127,10 @@ function updateBookmarks() {
     bookmark_selector.options[i] = null;
 
   // fill from global arr
-  for (var i=0; i<srcW.bookmarks.length; i++)
-    bookmark_selector.options[optidx++] = new Option(srcW.bookmarks[i].name,i);
+  if (srcW.bookmarks) {
+    for (var i=0; i<srcW.bookmarks.length; i++)
+      bookmark_selector.options[optidx++] = new Option(srcW.bookmarks[i].name,i);
+  }
 
   document.forms[0].reset();
 
@@ -170,8 +173,8 @@ onload = init;
     <form name="sub" onsubmit="return doSub();">
       <table border="0" width="100%">
           <tr><td>Bookmark</td><td><select id="bookmark_selector" onChange="return bookmark_selected(this);"><option value=''> - Choose Bookmark - </option></select></td></tr>
-          <tr><td colspan="2"><hr noshade size="1"></td></tr>
-          <tr><td>Name</td><td><input type="text" name="save_bookmark_as" size="32" style="width: 100%;"></td></tr>
+          <tr style="display:none;"><td colspan="2"><hr noshade size="1"></td></tr>
+          <tr style="display:none;"><td>Name</td><td><input type="text" name="save_bookmark_as" size="32" style="width: 100%;"></td></tr>
           <tr><td colspan="2"><hr noshade size="1"></td></tr>
           <tr style="display:none;"><td nowrap>Nickname</td><td width="100%"><input type="text" name="nick" size="32" style="width:100%;"></td></tr>
           <tr><td nowrap>Room</td><td width="100%"><input type="text" name="group" size="32" style="width:100%;"></td></tr>
