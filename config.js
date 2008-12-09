@@ -85,27 +85,6 @@ var BACKENDS =
 			httpbase:"/http-bind/",
 			type:"binding",
 			servers_allowed:[SITENAME]
-		},
-		{
-			name:"Native Polling",
-			description:"Ejabberd's native HTTP Polling backend",
-			httpbase:"/http-poll/",
-			type:"polling",
-			servers_allowed:[SITENAME]
-		},
-		{
-			name:"Open Relay",
-			description:"HTTP Binding backend that allows connecting to any jabber server",
-			httpbase:"/JHB/",
-			type:"binding",
-			default_server: SITENAME
-		},
-		{
-			name:"Restricted Relay",
-			description:"This one let's you choose from a limited list of allowed servers",
-			httpbase:"/JHB/",
-			type:"binding",
-			servers_allowed:[SITENAME,'jabber.org','jwchat.org']
 		}
 ];
 
@@ -115,7 +94,7 @@ var DEFAULTPRIORITY = "10";
 /* DEFAULTCONFERENCEGROUP + DEFAULTCONFERENCESERVER
  * default values for joingroupchat form
  */
-var DEFAULTCONFERENCEROOM = "talks";
+var DEFAULTCONFERENCEROOM = "support";
 var DEFAULTCONFERENCESERVER = "conference."+SITENAME;
 
 /* debugging options */
