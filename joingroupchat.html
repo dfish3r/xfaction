@@ -56,8 +56,10 @@ function updateBookmarks() {
     bookmark_selector.options[i] = null;
 
   // fill from global arr
-  for (var i=0; i<srcW.bookmarks.length; i++)
-    bookmark_selector.options[optidx++] = new Option(srcW.bookmarks[i].name,i);
+  if (srcW.bookmarks) {
+    for (var i=0; i<srcW.bookmarks.length; i++)
+      bookmark_selector.options[optidx++] = new Option(srcW.bookmarks[i].name,i);
+  }
 }
 
 var srw;
