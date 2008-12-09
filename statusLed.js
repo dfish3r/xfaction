@@ -14,3 +14,10 @@ var unavailableLed = new Image();
 unavailableLed.src = "images/unavailable.gif";
 var stalkerLed = new Image();  
 stalkerLed.src = "images/stalker.gif";
+
+var onlclass = new Object();
+onlclass["available"] = "status_available";
+onlclass["chat"] = "status_chat";
+onlclass["away"] = "status_away";
+onlclass["xa"] = "status_xa";
+onlclass["dnd"] = "status_dnd";
