@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Welcome to JWChat</title>
+    <title>xfaction.net</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <script src="config.js" language="JavaScript1.2"></script>
     <script src="browsercheck.js" language="JavaScript1.2"></script>
@@ -31,7 +31,7 @@
   * Please visit http://jwchat.sourceforge.net for more information!
   */
 
-var jid, pass, register, prio, connect_host, connect_port, connect_secure;
+var jid, realm, pass, register, prio, connect_host, connect_port, connect_secure;
 var jwchats = new Array();
 
 var JABBERSERVER;
@@ -106,7 +106,9 @@ function loginCheck(form) {
     JABBERSERVER = val;
   }
 
-  jid = form.jid.value + "@" + JABBERSERVER + "/";
+  var rs = document.getElementById('realm');
+  realm = REALMS[rs.selectedIndex];
+  jid = form.jid.value + "-" + realm + "@" + JABBERSERVER + "/";
   if (form.res.value != '')
     jid += form.res.value;
   else
@@ -245,10 +247,21 @@ function backendSelected() {
   }
 }
 
+function readCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
 function init() {
-  var welcome = "Welcome to JWChat at "+SITENAME;
-  document.title = welcome;
-  document.getElementById("welcomeh1").innerHTML = welcome;
+  //var welcome = "Welcome to JWChat at "+SITENAME;
+  //document.title = welcome;
+  //document.getElementById("welcomeh1").innerHTML = welcome;
 
   // create backend chooser - if any
   if (typeof(BACKENDS) == 'undefined' || BACKENDS.length == 0) {
@@ -293,14 +306,44 @@ function init() {
     
     backendSelected();
   }
-  document.forms[0].jid.focus();
+  // add realms
+  var tr_realm = document.getElementById('tr_realm');
+  var realmSelect = document.createElement('select');
+  realmSelect.setAttribute('id','realm');
+  realmSelect.setAttribute('name','realm');
+  realmSelect.setAttribute('tabindex',"2");
+
+  var realmTd = tr_realm.getElementsByTagName('td').item(0);
+  for (var i=0; i<realmTd.childNodes.length; i++)
+    realmTd.removeChild(realmTd.childNodes.item(i));
+
+   realmTd.appendChild(realmSelect);
+   var cookieRealm = readCookie('xfactionRealm');
+   for (var i=0; i<REALMS.length; i++) {
+     if (REALMS[i] == cookieRealm) {
+       realmSelect.options.add(new Option(REALMS[i],REALMS[i], true));
+     } else {
+       realmSelect.options.add(new Option(REALMS[i],REALMS[i]));
+     }
+   }
+   tr_realm.style.display = '';
+
+  var cookieJid = readCookie('xfactionChar');
+  if (cookieJid) {
+    document.forms[0].jid.value = cookieJid;
+    document.forms[0].pass.focus();
+  } else {
+    document.forms[0].jid.focus();
+  }
   document.getElementById('chars_prohibited').innerHTML = prohibited;
   if (typeof(DEFAULTRESOURCE) != 'undefined' && DEFAULTRESOURCE)
     document.forms[0].res.value = DEFAULTRESOURCE;
   
-	if (getUserName().length > 0) {
-	  document.getElementById('jid').setAttribute('value', getUserName());
-  }
+    /* we're using a cookie to store jid, don't get from URL
+    if (getUserName().length > 0) {
+      document.getElementById('jid').setAttribute('value', getUserName());
+    }
+    */
 
   document.getElementById('login_button').disabled = false;
 
@@ -386,14 +429,24 @@ onload = init;
   </head>
   
   <body>
-    <table width="100%" height="100%">
+    <table width="100%">
         <tr>
           <td align=center id='td_top'>
             <table>
                 <tr>
+                  <td align=center>
+                    <p style="font-family: monospance; font-weight: bolder; font-size: x-large; color: #990000; border-bottom: 1px solid #990000; border-top: 1px solid #990000; border-left: 1px solid #990000; border-right: 1px solid #990000;">--BETA--</p>
+                  </td>
+                </tr>
+                <tr>
                   <td>
-                    <h1 id="welcomeh1">Welcome to JWChat</h1>
+                    <h1 id="welcomeh1">Welcome to xfaction.net</h1>
                     <h2>A web-based Jabber<sup><small>&reg;</small></sup> client</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="font-size: x-small; padding-top: 10px;">
+                    For best results use <a href="http://www.firefox.com">Firefox 3</a>
                   </td>
                 </tr>
             </table>
@@ -411,16 +464,20 @@ onload = init;
                 <td></td>
               </tr>
               <tr>
-                <th class='form_spacer'><label for='jid'>Username</label></th>
+                <th class='form_spacer'><label for='jid'>Character</label></th>
                 <td class='form_spacer' width="100%"><input type="text" id='jid' name="jid" tabindex=3 class='input_text'></td>
               </tr>
-              <tr><td>&nbsp;</td><td nowrap class="desc">Username must not contain: <span id='chars_prohibited'></span></td></tr>
+              <tr id="tr_realm" style="display:none;">
+                <th title="Select Realm"><label for='realm'>Realm</label></th>
+                <td></td>
+              </tr>
+              <tr style="display:none;"><td>&nbsp;</td><td nowrap class="desc">Username must not contain: <span id='chars_prohibited'></span></td></tr>
               <tr>
                 <th><label for='pass'>Password</label></th>
                 <td><input type="password" id='pass' name="pass" tabindex=4 class='input_text'></td>
               </tr>
               <tr><td>&nbsp;</td><td><input type=checkbox name=register id=register> <label for="register">Register New Account</label></td></tr>
-              <tr id="showMoreOpts" class="toggleOpts">
+              <tr id="showMoreOpts" class="toggleOpts" style="display:none;">
                 <td>&nbsp;</td>
                 <td onClick="return toggleMoreOpts(1);"><img src="images/group_close.gif" title="Show More Options"> Show More Options</td>
               </tr>
@@ -460,18 +517,50 @@ onload = init;
     </form>	
   </td>
   </tr>
-    <tr>
-      <td id='td_bottom'>
-        <a href="http://sourceforge.net/donate/index.php?group_id=92011"><img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project" align=right /></a>
-        For details please visit <a href="http://jwchat.sourceforge.net">JWChat's Homepage</a>.
-        <br>
-        &copy; 2003-2005 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a> - 
-        <!-- Created: Wed Feb  5 15:19:17 CET 2003 -->
-        <!-- hhmts start -->
-Last modified: Fri Jan 19 14:26:00 CET 2007
-<!-- hhmts end -->
-      </td>
-    </tr>
+  <tr>
+    <td height="100%" align=center valign=top>
+      <table border=0 cellspacing=0 cellpadding=2 id="lTable" align=center width=380>
+        <tr>
+          <td>
+            <h1>How does this work?</h1>
+            <ul>
+              <li>Enter the WOW character name you are currently playing and select the realm that character is on.  Create a new account if you have never logged in before, otherwise enter your password and login.</li><br/>
+              <li>Chat with other players and view the battle grounds they are currently in.</li><br/>
+              <li>Upon entering a battle ground set your status appropriately. Your status can be set from the drop down on the bottom left of the screen in any chat room.</li><br/>
+              <li>Other players can now see where you are playing and can queue with the intent of playing against you.</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="100%" align=center valign=top>
+      <table border=0 cellspacing=0 cellpadding=2 align=center width=380>
+        <tr style="font-weight: bold;">
+          <td align=center width="33%"><a href="faq.html">FAQ</a></td>
+          <td align=center width="33%"><a href="aup.html">Acceptable Use</a></td>
+          <td align=center width="33%"><a href="privacy.html">Privacy</a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="100%" align=center valign=top>
+      <table border=0 cellspacing=0 cellpadding=2 align=center width=380>
+        <tr>
+          <td id="td_top">
+            <div style="font-size: xx-small">
+              <div align="center">Powered by: JWChat</div>
+              <div align="center">
+                World of Warcraft and Blizzard Entertainment are both trademarks or registered trademarks of Blizzard Entertainment in the United States and/or other countries. These terms and all related materials, logos, and images are copyright © Blizard Entertainment. This site is in no way associated with or endorsed by Blizzard Entertainment.
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
   </table>
   </body>
 </html>

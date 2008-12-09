@@ -1400,6 +1400,17 @@ function init() {
       oArg.secure = true;
   }
   con.connect(oArg);
+  if (jid.indexOf('-') != -1) {
+    createCookie('xfactionChar', jid.substring(0, jid.indexOf('-')), 30);
+    createCookie('xfactionRealm', jid.substring(jid.indexOf('-') + 1, jid.indexOf('@')), 30);
+  }
+}
+
+function createCookie(name,value,days) {
+  var date = new Date();
+  date.setTime(date.getTime()+(days*24*60*60*1000));
+  var expires = "; expires="+date.toGMTString();
+  document.cookie = name+"="+value+expires+"; path=/";
 }
 
 /************************************************************************
