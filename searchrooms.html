@@ -79,7 +79,7 @@ function getDiscoItems(iq) {
 	search_result_iframe.document.body.appendChild(myTable);	
 
 	document.getElementById("search_result_iframe").style.display = '';
-	document.getElementById("addbookmark_button").style.display = '';
+	document.getElementById("addbookmark_button").style.display = 'none';
 	document.getElementById("join_room_button").style.display = '';
 	document.getElementById("addbookmark_button").disabled = true;
 	document.getElementById("join_room_button").disabled = true;
@@ -135,6 +135,7 @@ function getVCard(iq) {
 
 function joinRoom() {
 	srcW.openGroupchat(search_result_iframe.selectedRow.getAttribute('jid'),srcW.nick);
+        window.close();
 	return false;
 }
 
@@ -145,10 +146,15 @@ function backtosearch() {
 }
 
 function init() {
-	srcW = opener.srcW;
-	if (srcW.DEFAULTCONFERENCESERVER)
+        if (opener.top.roster)
+                srcW = opener.top;
+        else
+                srcW = opener.srcW;
+        document.getElementById("search_result_tab").style.display = 'none';
+	if (srcW.DEFAULTCONFERENCESERVER) {
 		document.forms[0].conference_server.value = srcW.DEFAULTCONFERENCESERVER;
-	document.getElementById("search_result_tab").style.display = 'none';
+                doSub();
+        }
 }
 
 function cleanUp() {
@@ -199,7 +205,7 @@ onunload = cleanUp;
 				<tr><td><hr noshade size=1></td></tr>
 				<tr>
 					<td align=right>
-						<button id="addbookmark_button" onClick="return addBookmark();" disabled>Bookmark</button>&nbsp;<button id="join_room_button" onClick="return joinRoom();">Join</button>&nbsp;<button onClick="return backtosearch();">Back</button>
+						<button id="addbookmark_button" style="display:none;" onClick="return addBookmark();" disabled>Bookmark</button>&nbsp;<button id="join_room_button" onClick="return joinRoom();">Join</button>&nbsp;<button style="display:none;" onClick="return backtosearch();">Back</button>
 					</td>
 				</tr>
 		</table>
