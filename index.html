@@ -91,6 +91,12 @@ function loginCheck(form) {
     return false;
   }
 
+  var rs = document.getElementById('realm');
+  if (rs.selectedIndex == 0) {
+    alert("You need to supply a realm");
+    return false;
+  }
+
   if (form.pass.value == '') {
     alert("You need to supply a password");
     return false;
@@ -106,8 +112,7 @@ function loginCheck(form) {
     JABBERSERVER = val;
   }
 
-  var rs = document.getElementById('realm');
-  realm = REALMS[rs.selectedIndex];
+  realm = REALMS[rs.selectedIndex - 1];
   jid = form.jid.value + "-" + realm + "@" + JABBERSERVER + "/";
   if (form.res.value != '')
     jid += form.res.value;
@@ -318,6 +323,7 @@ function init() {
     realmTd.removeChild(realmTd.childNodes.item(i));
 
    realmTd.appendChild(realmSelect);
+   realmSelect.options.add(new Option("Select a realm"));
    var cookieRealm = readCookie('xfactionRealm');
    for (var i=0; i<REALMS.length; i++) {
      if (REALMS[i] == cookieRealm) {
