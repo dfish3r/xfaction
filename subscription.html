@@ -97,11 +97,13 @@ onload = init;
   <body style="margin:8px">
     <form name="sub" style="border:0;padding:0;margin:0;" onSubmit="return sendSub();">
       <table border="0" width="100%" height="100%">
-          <tr><td nowrap>Search for a User:</td><td><button onClick="return srcW.openSearch();">Open Search</button></td></tr>
+          <tr style="display:none;"><td nowrap>Search for a User:</td><td><button onClick="return srcW.openSearch();">Open Search</button></td></tr>
           <tr><td colspan=2><hr noshade size="1" size="100%"></td></tr>
           <tr>
-            <td align="right" nowrap><label for="to">Send subscription to</label></td>
-            <td width="100%"><input type="text" id="to" name="to" size="1" style="width:100%;" tabindex="1"></td>
+            <td align="center" width="100%" nowrap><label for="to">Send subscription to</label></td>
+          </tr>
+          <tr>
+            <td width="100%" nowrap><input type="text" id="to" name="to" size="1" style="width: 50%;" tabindex="1">@xfaction.net</td>
           </tr>
           <tr style="display:none;">
             <td nowrap align="right"><label for="services">Service (optional)</label></td>
