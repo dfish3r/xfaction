@@ -56,20 +56,14 @@ function searchUser() {
 		iq.setType('set');
 		var query = iq.setQuery('jabber:iq:search');
 
-		var xmldoc = XmlDocument.create('body','foo');
-		xmldoc.loadXML('<body>'+searchstring+'</body>');
-
-		for (var i=0; i<xmldoc.documentElement.childNodes.length; i++)
-			query.appendChild(xmldoc.firstChild.childNodes.item(i).cloneNode(true));
-
-		query.appendChild(xmldoc.firstChild.cloneNode(true));
-
+                var xmldoc = XmlDocument.create('','');
+                xmldoc.loadXML(searchstring);
+                query.appendChild(xmldoc.documentElement.cloneNode(true));
 	}
 
-	srcW.Debug.log("created query:" + iq.getDoc().xml,2);
+        srcW.Debug.log("created query:" + iq.xml(),2);
 
-	me = this;
-	srcW.con.send(iq,me.getQueryResult);
+        srcW.con.send(iq, getQueryResult);
 	return false;
 }
 
