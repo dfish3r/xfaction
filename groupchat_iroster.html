@@ -28,7 +28,10 @@ function selectUser(el) {
 }
 
 function userClicked(el,jid) {
+  /* we don't allow private chat in conferences.
   return parent.top.user.roster.openChat(jid);
+  */
+  return false;
 }
     </script>
   </body>
