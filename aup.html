@@ -4,6 +4,21 @@
   <head>
     <title>xfaction.net</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script language="JavaScript">
+<!--
+      function init() {
+        if (opener && opener.document.forms[0].register.checked)
+          document.getElementById('tr_button').style.display = '';
+      }
+
+      function aupAccepted() {
+        opener.aup_accepted = true;
+        window.close();
+        return true;
+      }
+      onload = init;
+//-->
+    </script>
     <style type="text/css">
 /*<![CDATA[*/
       body { color: #2a3847; background-color: white; }
@@ -142,6 +157,9 @@
           </tr>
         </table>
       </td>
+    </tr>
+    <tr id="tr_button" style="display: none;">
+      <td align="center"><br/><button type="submit" id="aup_button" onClick="return aupAccepted();">I Accept</button></td>
     </tr>
     <tr>
       <td height="100%" align=center valign=top>

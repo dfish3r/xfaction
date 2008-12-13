@@ -31,7 +31,7 @@
   * Please visit http://jwchat.sourceforge.net for more information!
   */
 
-var jid, realm, pass, register, prio, connect_host, connect_port, connect_secure;
+var jid, realm, pass, register, aup_accepted, prio, connect_host, connect_port, connect_secure;
 var jwchats = new Array();
 
 var JABBERSERVER;
@@ -99,6 +99,12 @@ function loginCheck(form) {
 
   if (form.pass.value == '') {
     alert("You need to supply a password");
+    return false;
+  }
+
+  if (form.register.checked && !aup_accepted) {
+    alert("You must accept the acceptable use policy");
+    registerAccount();
     return false;
   }
 
@@ -263,6 +269,18 @@ function readCookie(name) {
   return null;
 }
 
+var aup_win;
+function registerAccount() {
+  if (document.forms[0].register.checked) {
+    aup_win = window.open('aup.html','aup','width=700,height=750,resizable=yes,scrollbars=1');
+    document.getElementById('login_button').childNodes[0].nodeValue = "Register & Login";
+  } else {
+    if (aup_win && aup_win.open && !aup_win.closed)
+      aup_win.close();
+    document.getElementById('login_button').childNodes[0].nodeValue = "Login";
+  }
+}
+
 function init() {
   //var welcome = "Welcome to JWChat at "+SITENAME;
   //document.title = welcome;
@@ -351,6 +369,7 @@ function init() {
     }
     */
 
+  document.getElementById('register').checked = false;
   document.getElementById('login_button').disabled = false;
 
   tryAutoLogin();
@@ -467,7 +486,7 @@ onload = init;
             </table>
           </td>
         </tr>
-    <form name="login" onSubmit="return loginCheck(this);">
+    <form name="login" method="post" onSubmit="return loginCheck(this);">
       <tr>
         <td height="100%" align=center valign=top id='td_form'>
           <table border=0 cellspacing=0 cellpadding=2 id="lTable" align=center width=380>
@@ -491,7 +510,7 @@ onload = init;
                 <th><label for='pass'>Password</label></th>
                 <td><input type="password" id='pass' name="pass" tabindex=4 class='input_text'></td>
               </tr>
-              <tr><td>&nbsp;</td><td><input type=checkbox name=register id=register> <label for="register">Register New Account</label></td></tr>
+              <tr><td>&nbsp;</td><td><input type=checkbox name=register id=register onClick="registerAccount()"> <label for="register">Register New Account</label></td></tr>
               <tr id="showMoreOpts" class="toggleOpts" style="display:none;">
                 <td>&nbsp;</td>
                 <td onClick="return toggleMoreOpts(1);"><img src="images/group_close.gif" title="Show More Options"> Show More Options</td>
