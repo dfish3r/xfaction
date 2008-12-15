@@ -7,8 +7,10 @@
     <script language="JavaScript">
 <!--
       function init() {
-        if (opener && opener.document.forms[0].register.checked)
+        if (opener && opener.document.forms[0].register.checked) {
           document.getElementById('tr_button').style.display = '';
+          document.getElementById('tr_links').style.display = 'none';
+        }
       }
 
       function aupAccepted() {
@@ -31,6 +33,9 @@
       ol { counter-reset: item; }
       li { display: block }
       li:before { content: counter(item) ")"; counter-increment: item; }
+      button { font-family: Verdana, sans-serif; font-size: 10px; border-style: solid; border-width: 1px; border-color: #666666; padding: 2px; }
+      button:hover { border-style: outset; }
+      button:active { border-style: inset; }
       #td_label { font-size: 0.9em; text-align: left; vertical-align: top; font-weight: bold; white-space: nowrap; }
       #td_text { font-size: 0.8em; text-align: left; vertical-align: top; }
       #td_top { padding-top: 20px; }
@@ -160,6 +165,19 @@
     </tr>
     <tr id="tr_button" style="display: none;">
       <td align="center"><br/><button type="submit" id="aup_button" onClick="return aupAccepted();">I Accept</button></td>
+    </tr>
+    <tr id="tr_links">
+      <td height="100%" align=center valign=top>
+        <table border=0 cellspacing=0 cellpadding=2 align=center width=380>
+          <tr style="font-weight: bold; font-size: small">
+            <td align=center width="20%" nowrap><a href="index.html">Home</a></td>
+            <td align=center width="20%" nowrap><a href="faq.html">FAQ</a></td>
+            <td align=center width="20%" nowrap><a href="aup.html">Acceptable Use</a></td>
+            <td align=center width="20%" nowrap><a href="privacy.html">Privacy</a></td>
+            <td align=center width="20%" nowrap><a href="feedback.html">Feedback</a></td>
+          </tr>
+        </table>
+      </td> 
     </tr>
     <tr>
       <td height="100%" align=center valign=top>
