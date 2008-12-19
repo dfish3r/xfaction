@@ -9,24 +9,29 @@
  * Please visit http://zeank.in-berlin.de/jsjac/ for details about JSJaC.
  */
 
-var JSJAC_HAVEKEYS = true;  // whether to use keys
-var JSJAC_NKEYS    = 16;    // number of keys to generate
-var JSJAC_INACTIVITY = 300; // qnd hack to make suspend/resume work more smoothly with polling
-var JSJAC_ERR_COUNT = 10;   // number of retries in case of connection errors
+var JSJAC_HAVEKEYS = true;          // whether to use keys
+var JSJAC_NKEYS    = 16;            // number of keys to generate
+var JSJAC_INACTIVITY = 300;         // qnd hack to make suspend/resume 
+                                    // work more smoothly with polling
+var JSJAC_ERR_COUNT = 10;           // number of retries in case of connection
+                                    // errors
 
-var JSJAC_ALLOW_PLAIN = true; // whether to allow plaintext logins
+var JSJAC_ALLOW_PLAIN = true;       // whether to allow plaintext logins
 
-var JSJAC_CHECKQUEUEINTERVAL = 1; // msecs to poll send queue
+var JSJAC_CHECKQUEUEINTERVAL = 1;   // msecs to poll send queue
 var JSJAC_CHECKINQUEUEINTERVAL = 1; // msecs to poll incoming queue
+var JSJAC_TIMERVAL = 2000;          // default polling interval
 
 // Options specific to HTTP Binding (BOSH)
+var JSJACHBC_MAX_HOLD = 1;          // default for number of connctions held by 
+                                    // connection maanger 
+var JSJACHBC_MAX_WAIT = 300;        // default 'wait' param - how long an idle connection
+                                    // should be held by connection manager
+
 var JSJACHBC_BOSH_VERSION  = "1.6";
 var JSJACHBC_USE_BOSH_VER  = true;
 
-var JSJACHBC_MAX_HOLD = 1;
-var JSJACHBC_MAX_WAIT = 300;
-
-var JSJACHBC_MAXPAUSE = 120;
+var JSJACHBC_MAXPAUSE = 120;        // how long a suspend/resume cycle may take
 
 /*** END CONFIG ***/
 
@@ -914,7 +919,7 @@ JSJaCJSON.parse = function (str) {
  * this code is taken from
  * http://webfx.eae.net/dhtml/xmlextras/xmlextras.html
  * @author Stefan Strigler steve@zeank.in-berlin.de
- * @version $Revision: 437 $
+ * @version $Revision: 499 $
  */
 
 /**
@@ -985,6 +990,7 @@ function XmlDocument() {}
 XmlDocument.create = function (name,ns) {
   name = name || 'foo';
   ns = ns || '';
+
   try {
     var doc;
     // DOM2
@@ -1029,7 +1035,7 @@ XmlDocument.create = function (name,ns) {
    
     return doc;
   }
-  catch (ex) { alert(ex.name+": "+ex.message); }
+  catch (ex) { }
   throw new Error("Your browser does not support XmlDocument objects");
 };
 
@@ -1440,18 +1446,20 @@ function JSJaCConsoleLogger(level) {
  * this site, with one single exception."
  *
  * @author Stefan Strigler
- * @version $Revision: 481 $
+ * @version $Revision: 496 $
  */
 
 /**
  * Creates a new Cookie
  * @class Class representing browser cookies for storing small amounts of data
  * @constructor
- * @param {String} name  The name of the value to store
- * @param {String} value The value to store
- * @param {int}    secs  Number of seconds until cookie expires (may be empty)
+ * @param {String} name   The name of the value to store
+ * @param {String} value  The value to store
+ * @param {int}    secs   Number of seconds until cookie expires (may be empty)
+ * @param {String} domain The domain for the cookie
+ * @param {String} path   The path of cookie
  */
-function JSJaCCookie(name,value,secs)
+function JSJaCCookie(name,value,secs,domain,path)
 {
   if (window == this)
     return new JSJaCCookie(name, value, secs);
@@ -1475,6 +1483,18 @@ function JSJaCCookie(name,value,secs)
   this.secs = secs;
 
   /**
+   * The cookie's domain
+   * @type string
+   */
+  this.domain = domain;
+
+  /**
+   * The cookie's path
+   * @type string
+   */
+  this.path = path;
+
+  /**
    * Stores this cookie
    */
   this.write = function() {
@@ -1484,7 +1504,12 @@ function JSJaCCookie(name,value,secs)
       var expires = "; expires="+date.toGMTString();
     } else
       var expires = "";
-    document.cookie = this.getName()+"="+this.getValue()+expires+"; path=/";
+    var domain = this.domain?"; domain="+this.domain:"";
+    var path = this.path?"; path="+this.path:"; path=/";
+    document.cookie = this.getName()+"="+this.getValue()+
+      expires+
+      domain+
+      path;
   };
   /**
    * Deletes this cookie
@@ -1531,6 +1556,28 @@ function JSJaCCookie(name,value,secs)
    */
   this.setValue = function(value) {
     this.value = value;
+    return this;
+  };
+
+  /**
+   * Sets the domain of this cookie
+   * @param {String} domain The value for the domain of the cookie
+   * @return This cookie
+   * @type Cookie
+   */
+  this.setDomain = function(domain) {
+    this.domain = domain;
+    return this;
+  };
+
+  /**
+   * Sets the path of this cookie
+   * @param {String} path The value of the path of the cookie
+   * @return This cookie
+   * @type Cookie
+   */
+  this.setPath = function(path) {
+    this.path = path;
     return this;
   };
 }
@@ -1866,7 +1913,7 @@ function JSJaCKeys(func,oDbg) {
 /**
  * @fileoverview Contains all Jabber/XMPP packet related classes.
  * @author Stefan Strigler steve@zeank.in-berlin.de
- * @version $Revision: 480 $
+ * @version $Revision: 493 $
  */
 
 var JSJACPACKET_USE_XMLNS = true;
@@ -2075,7 +2122,7 @@ JSJaCPacket.prototype.getChild = function(name, ns) {
     return nodes.item(0);
   }
   return null; // nothing found
-}
+};
 
 /**
  * Gets the node value of a child element of this packet.
@@ -2551,7 +2598,7 @@ JSJaCPacket.wrapNode = function(node) {
  * @fileoverview Contains all things in common for all subtypes of connections
  * supported.
  * @author Stefan Strigler steve@zeank.in-berlin.de
- * @version $Revision: 476 $
+ * @version $Revision: 497 $
  */
 
 /**
@@ -2565,32 +2612,45 @@ JSJaCPacket.wrapNode = function(node) {
  * * <code>oDbg</code> (optional) a reference to a debugger interface
  */
 function JSJaCConnection(oArg) {
-
-  if (oArg && oArg.oDbg && oArg.oDbg.log)
-    /**
-     * Reference to debugger interface
-     *(needs to implement method <code>log</code>)
-     * @type Debugger
-     */
+  
+  if (oArg && oArg.oDbg && oArg.oDbg.log) {
+      /**
+       * Reference to debugger interface
+       * (needs to implement method <code>log</code>)
+       * @type Debugger
+       */
     this.oDbg = oArg.oDbg;
-  else {
+  } else {
     this.oDbg = new Object(); // always initialise a debugger
     this.oDbg.log = function() { };
   }
+  
+  if (oArg && oArg.timerval)
+    this.setPollInterval(oArg.timerval);
+  else 
+    this.setPollInterval(JSJAC_TIMERVAL);
 
   if (oArg && oArg.httpbase)
-    /**
-     * @private
-     */
+      /**
+       * @private
+       */
     this._httpbase = oArg.httpbase;
  
-  if (oArg && oArg.allow_plain)
-    /**
-     * @private
-     */
+  if (oArg &&oArg.allow_plain)
+      /**
+       * @private
+       */
     this.allow_plain = oArg.allow_plain;
   else
     this.allow_plain = JSJAC_ALLOW_PLAIN;
+  
+  if (oArg && oArg.cookie_prefix)
+      /**
+       * @private
+       */
+    this._cookie_prefix = oArg.cookie_prefix;
+  else
+    this._cookie_prefix = "";
 
   /**
    * @private
@@ -2640,9 +2700,6 @@ function JSJaCConnection(oArg) {
    * @private
    */
   this._sendRawCallbacks = new Array();
-
-  if (oArg && oArg.timerval)
-    this.setPollInterval(oArg.timerval);
 }
 
 JSJaCConnection.prototype.connect = function(oArg) {
@@ -2736,7 +2793,7 @@ JSJaCConnection.prototype.disconnect = function() {
   this._req[slot].r.send(request);
 
   try {
-    JSJaCCookie.read('JSJaC_State').erase();
+    JSJaCCookie.read(this._cookie_prefix+'JSJaC_State').erase();
   } catch (e) {}
 
   this.oDbg.log("Disconnected: "+this._req[slot].r.responseText,2);
@@ -2914,7 +2971,7 @@ JSJaCConnection.prototype.registerIQSet =
 JSJaCConnection.prototype.resume = function() {
   try {
     this._setStatus('resuming');
-    var s = unescape(JSJaCCookie.read('JSJaC_State').getValue());
+    var s = JSJaCCookie.read(this._cookie_prefix+'JSJaC_State').getValue();
      
     this.oDbg.log('read cookie: '+s,2);
 
@@ -2934,7 +2991,7 @@ JSJaCConnection.prototype.resume = function() {
     }
 
     try {
-      JSJaCCookie.read('JSJaC_State').erase();
+      JSJaCCookie.read(this._cookie_prefix+'JSJaC_State').erase();
     } catch (e) {}
 
     if (this._connected) {
@@ -3015,7 +3072,7 @@ JSJaCConnection.prototype.sendIQ = function(iq, handlers, arg) {
 
   handlers = handlers || {};
   var error_handler = handlers.error_handler || function(aIq) {
-    this.oDbg.log(iq.xml(), 1);
+    this.oDbg.log(aIq.xml(), 1);
   };
  
   var result_handler = handlers.result_handler ||  function(aIq) {
@@ -3076,52 +3133,53 @@ JSJaCConnection.prototype.status = function() { return this._status; };
  * Suspsends this connection (saving state for later resume)
  */
 JSJaCConnection.prototype.suspend = function() {
-	
-    // remove timers
-    clearTimeout(this._timeout);
-    clearInterval(this._interval);
-    clearInterval(this._inQto);
+  
+  // remove timers
+  clearTimeout(this._timeout);
+  clearInterval(this._interval);
+  clearInterval(this._inQto);
 
-    this._suspend();
+  this._suspend();
 
-    var u = ('_connected,_keys,_ID,_inQ,_pQueue,_regIDs,_errcnt,_inactivity,domain,username,resource,jid,fulljid,_sid,_httpbase,_timerval,_is_polling').split(',');
-    u = u.concat(this._getSuspendVars());
-    var s = new Object();
+  var u = ('_connected,_keys,_ID,_inQ,_pQueue,_regIDs,_errcnt,_inactivity,domain,username,resource,jid,fulljid,_sid,_httpbase,_timerval,_is_polling').split(',');
+  u = u.concat(this._getSuspendVars());
+  var s = new Object();
 
-    for (var i=0; i<u.length; i++) {
-      if (!this[u[i]]) continue; // hu? skip these!
-      if (this[u[i]]._getSuspendVars) {
-        var uo = this[u[i]]._getSuspendVars();
-        var o = new Object();
-        for (var j=0; j<uo.length; j++)
-          o[uo[j]] = this[u[i]][uo[j]];
-      } else
-        var o = this[u[i]];
+  for (var i=0; i<u.length; i++) {
+    if (!this[u[i]]) continue; // hu? skip these!
+    if (this[u[i]]._getSuspendVars) {
+      var uo = this[u[i]]._getSuspendVars();
+      var o = new Object();
+      for (var j=0; j<uo.length; j++)
+        o[uo[j]] = this[u[i]][uo[j]];
+    } else
+      var o = this[u[i]];
 
-      s[u[i]] = o;
-    }
-    var c = new JSJaCCookie('JSJaC_State', escape(JSJaCJSON.toString(s)),
-                            this._inactivity);
-    this.oDbg.log("writing cookie: "+unescape(c.value)+"\n(length:"+
-                  unescape(c.value).length+")",2);
-    c.write();
+    s[u[i]] = o;
+  }
 
-    try {
-      var c2 = JSJaCCookie.read('JSJaC_State');
-      if (c.value != c2.value) {
-        this.oDbg.log("Suspend failed writing cookie.\nRead: "+
-                      unescape(JSJaCCookie.read('JSJaC_State')), 1);
-        c.erase();
-      }
+  var c = new JSJaCCookie(this._cookie_prefix+'JSJaC_State', JSJaCJSON.toString(s));
+  this.oDbg.log("writing cookie: "+c.value+"\n"+
+                "(length:"+c.value.length+")",2);
+  c.write();
 
-      this._connected = false;
-
-      this._setStatus('suspending');
-    } catch (e) {
-      this.oDbg.log("Failed reading cookie 'JSJaC_State': "+e.message);
+  try {
+    var c2 = JSJaCCookie.read(this._cookie_prefix+'JSJaC_State');
+    if (c.value != c2.value) {
+      this.oDbg.log("Suspend failed writing cookie.\nRead: "+
+                    JSJaCCookie.read(this._cookie_prefix+'JSJaC_State'), 1);
+      c.erase();
     }
 
-  };
+    this._connected = false;
+
+    this._setStatus('suspending');
+  } catch (e) {
+    this.oDbg.log("Failed creating cookie '"+this._cookie_prefix+
+                  "JSJaC_State': "+e.message);
+  }
+
+};
 
 /**
  * @private
@@ -3373,7 +3431,7 @@ JSJaCConnection.prototype._doSASLAuthDigestMd5S1 = function(el) {
     var rPlain = 'username="'+this.username+'",realm="'+this.domain+
     '",nonce="'+this._nonce+'",cnonce="'+this._cnonce+'",nc="'+this._nc+
     '",qop=auth,digest-uri="'+this._digest_uri+'",response="'+response+
-    '",charset=utf-8';
+    '",charset="utf-8"';
    
     this.oDbg.log("response: "+rPlain,2);
 
@@ -3495,7 +3553,7 @@ JSJaCConnection.prototype._handleEvent = function(event,arg) {
   this.oDbg.log("handling event '"+event+"'",2);
   for (var i=0;i<this._events[event].length; i++) {
     var aEvent = this._events[event][i];
-    if (aEvent.handler) {
+    if (typeof aEvent.handler == 'function') {
       try {
         if (arg) {
           if (arg.pType) { // it's a packet
@@ -3508,12 +3566,16 @@ JSJaCConnection.prototype._handleEvent = function(event,arg) {
               continue;
             this.oDbg.log(aEvent.childName+"/"+aEvent.childNS+"/"+aEvent.type+" => match for handler "+aEvent.handler,3);
           }
-          if (aEvent.handler.call(this,arg)) // handled!
+          if (aEvent.handler(arg)) {
+            // handled!
             break;
+          }
         }
         else
-          if (aEvent.handler.call(this)) // handled!
+          if (aEvent.handler()) {
+            // handled!
             break;
+          }
       } catch (e) { this.oDbg.log(aEvent.handler+"\n>>>"+e.name+": "+ e.message,1); }
     }
   }
@@ -4651,11 +4713,11 @@ JSJaCHttpPollingConnection._parseTree = function(s) {
  * @fileoverview Magic dependency loading. Taken from script.aculo.us
  * and modified to break it.
  * @author Stefan Strigler steve@zeank.in-berlin.de 
- * @version $Revision: 456 $
+ * @version $Revision: 491 $
  */
 
 var JSJaC = {
-  Version: '$Rev: 456 $',
+  Version: '$Rev: 491 $',
   require: function(libraryName) {
     // inserting via DOM fails in Safari 2.0, so brute force approach
     document.write('<script type="text/javascript" src="'+libraryName+'"></script>');
@@ -4690,12 +4752,9 @@ var JSJaC = {
     for (var i=0; i<includes.length; i++)
       this.require(path+includes[i]+'.js');
   },
-  bind: function(fn, obj, arg) {
-    return function() {
-      if (arg)
-        fn.apply(obj, arg);
-      else
-        fn.apply(obj);
+  bind: function(fn, obj, optArg) {
+    return function(arg) {
+      return fn.apply(obj, [arg, optArg]);
     };
   }
 };
