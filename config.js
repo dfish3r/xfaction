@@ -28,6 +28,45 @@
 
 var SITENAME = "xfaction.net";
 
+var BL_REALMS = [ 
+  'AmanThul',
+  'Barthilas',
+  'Blackrock',
+  'Caelestrasz',
+  'DathRemar',
+  'Dreadmaul',
+  'Frostmourne',
+  'Frostwolf',
+  'Khazgoroth',
+  'KilJaeden',
+  'Kilrogg',
+  'Nagrand',
+  'Nerzhul',
+  'Proudmoore',
+  'Senjin',
+  'Silver-Hand',
+  'Thaurissan',
+  'Tichondrius',
+  'Veknilash'
+];
+var C_REALMS = [ 
+  'Azjol-Nerub', 
+  'Bloodscalp',
+  'Boulderfist',
+  'Bronzebeard',
+  'Crushridge',
+  'Daggerspine',
+  'Darkspear',
+  'Draenor',
+  'Dragonblight',
+  'Dunemaul',
+  'Feathermoon',
+  'Perenolde',
+  'Stonemaul',
+  'Stormscale',
+  'Suramar',
+  'Uldum'
+];
 var SS_REALMS = [ 
   'Andorhal',
   'Anetheron',
@@ -50,30 +89,10 @@ var SS_REALMS = [
   'Ysondre',
   'Zuluhed'
 ];
-var BL_REALMS = [ 
-  'AmanThul',
-  'Barthilas',
-  'Blackrock',
-  'Caelestrasz',
-  'DathRemar',
-  'Dreadmaul',
-  'Frostmourne',
-  'Frostwolf',
-  'Khazgoroth',
-  'KilJaeden',
-  'Kilrogg',
-  'Nagrand',
-  'Nerzhul',
-  'Proudmoore',
-  'Senjin',
-  'Silver-Hand',
-  'Thaurissan',
-  'Tichondrius',
-  'Veknilash'
-];
 var REALMS = new Array();
-REALMS = REALMS.concat(SS_REALMS);
 REALMS = REALMS.concat(BL_REALMS);
+REALMS = REALMS.concat(C_REALMS);
+REALMS = REALMS.concat(SS_REALMS);
 REALMS.sort();
 
 /* BACKENDS
