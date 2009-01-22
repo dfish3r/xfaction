@@ -142,7 +142,7 @@ function loginCheck(form) {
   connect_host = form.connect_host.value;
   connect_secure = form.connect_secure.checked;
 
-  jwchats[jid] = window.open('jwchat.html',makeWindowName(jid),'width=180,height=390,resizable=yes');
+  jwchats[jid] = window.open('jwchat.html',makeWindowName(jid),'width=250,height=350,resizable=yes');
 
   return false;
 }
@@ -541,7 +541,7 @@ onload = init;
             <h1>How does this work?</h1>
             <ul>
               <li>Enter the WOW character name you are currently playing and select the realm that character is on.  Register a new account if you have never logged in before, otherwise enter your password and login.</li><br/>
-              <li>Click the 'Join Groupchat' button and select a chat room.</li><br/>
+              <li>Click the 'Click to Start...' drop down, select 'Join Groupchat', and enter a chat room.</li><br/>
               <li>Chat with other players and view the battle grounds they are currently in.</li><br/>
               <li>Upon entering a battle ground set your status appropriately. Your status can be set from the drop down on the bottom left of the screen in any chat room.</li><br/>
               <li>Other players can now see where you are playing and can queue with the intent of playing against you.</li>
@@ -555,11 +555,12 @@ onload = init;
     <td height="100%" align=center valign=top>
       <table border=0 cellspacing=0 cellpadding=2 align=center width="380">
         <tr style="font-weight: bold; font-size: small">
-          <td align=center width="20%" nowrap><a href="index.html">Home</a></td>
-          <td align=center width="20%" nowrap><a href="faq.html">FAQ</a></td>
-          <td align=center width="20%" nowrap><a href="aup.html">Acceptable Use</a></td>
-          <td align=center width="20%" nowrap><a href="privacy.html">Privacy</a></td>
-          <td align=center width="20%" nowrap><a href="feedback.html">Feedback</a></td>
+          <td align=center width="16%" nowrap><a href="index.html">Home</a></td>
+          <td align=center width="16%" nowrap><a href="help.html">Help</a></td>
+          <td align=center width="16%" nowrap><a href="faq.html">FAQ</a></td>
+          <td align=center width="16%" nowrap><a href="aup.html">Acceptable Use</a></td>
+          <td align=center width="16%" nowrap><a href="privacy.html">Privacy</a></td>
+          <td align=center width="16%" nowrap><a href="feedback.html">Feedback</a></td>
         </tr>
       </table>
     </td> 
