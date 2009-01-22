@@ -55,7 +55,7 @@ function init() {
   getArgs();
   jid = (passedArgs['jid'])?passedArgs['jid']:'';
   
-  document.title = "Send subscription";
+  document.title = "Add Contact";
   document.title += (jid)?" to " + jid:"";
   if (jid)
     document.forms[0].to.value = jid;
@@ -100,10 +100,10 @@ onload = init;
           <tr style="display:none;"><td nowrap>Search for a User:</td><td><button onClick="return srcW.openSearch();">Open Search</button></td></tr>
           <tr><td colspan=2><hr noshade size="1" size="100%"></td></tr>
           <tr>
-            <td align="center" width="100%" nowrap><label for="to">Send subscription to</label></td>
+            <td align="center" width="100%" nowrap><label for="to">Send buddy request to</label></td>
           </tr>
           <tr>
-            <td width="100%" nowrap><input type="text" id="to" name="to" size="1" style="width: 50%;" tabindex="1">@xfaction.net</td>
+            <td width="100%" nowrap><input type="text" id="to" name="to" size="1" style="width: 100%;" tabindex="1"></td>
           </tr>
           <tr style="display:none;">
             <td nowrap align="right"><label for="services">Service (optional)</label></td>
