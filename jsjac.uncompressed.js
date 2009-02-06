@@ -29,7 +29,9 @@ var JSJACHBC_MAX_WAIT = 300;        // default 'wait' param - how long an idle c
                                     // should be held by connection manager
 
 var JSJACHBC_BOSH_VERSION  = "1.6";
-var JSJACHBC_USE_BOSH_VER  = true;
+// set to false to fix logins with unicode characters
+//var JSJACHBC_USE_BOSH_VER  = true;
+var JSJACHBC_USE_BOSH_VER  = false;
 
 var JSJACHBC_MAXPAUSE = 120;        // how long a suspend/resume cycle may take
 
@@ -3431,7 +3433,7 @@ JSJaCConnection.prototype._doSASLAuthDigestMd5S1 = function(el) {
     var rPlain = 'username="'+this.username+'",realm="'+this.domain+
     '",nonce="'+this._nonce+'",cnonce="'+this._cnonce+'",nc="'+this._nc+
     '",qop=auth,digest-uri="'+this._digest_uri+'",response="'+response+
-    '",charset="utf-8"';
+    '",charset="utf-8 "';
    
     this.oDbg.log("response: "+rPlain,2);
 
