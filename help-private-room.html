@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>xfaction - Private Room Help</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      table#content { margin-left: 30px; }
+        td { vertical-align: top; width: 400px; }
+      #header_content { margin-left: 15px; }
+      #section_content { margin-left: 30px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>xfaction - Private Room Help</h1>
+
+    <p>
+    Xfaction allows any user to create a private chat room.</br>
+    What features are supported in private chat rooms?
+    <ul>
+      <li><strong>Persistent Rooms:</strong> you can control whether your room will continue to exist even if everyone leaves</li>
+      <li><strong>Hidden Rooms:</strong> you can control whether your room will display in the list of available rooms</li>
+      <li><strong>Members Only Rooms:</strong> you can control who has access to your room</li>
+      <li><strong>Moderated Rooms:</strong> you can control who moderates, who can speak, and who can only listen</li>
+      <li><strong>Public Logging:</strong> you can control whether your room is <a href="https://www.xfaction.net/muc_log/">publically logged</a></li>
+    </ul>
+    See the instructions below for how to create and configure a private room.
+    </p>
+
+    <h2><a name="toc">Table of Contents</a></h2>
+
+    <ol>
+      <li><a href="#pidgin">Pidgin</a>
+    </ol>
+
+    <div id="header_content">
+    <h2><a name="pidgin">Pidgin</h2></a>
+    <table id="content" cellspacing="10" cellpadding="0" border="0">
+    <tr>
+    <td>Launch the Pidgin application and login</td>
+    <td><a href="help/pidgin/launch.png"><img src="help/pidgin/launch.png" height="100"/></a></td>
+    </tr>
+    <tr>
+    <td>Select Buddies &#187; Join a Chat, type the name of the room you wish to create, and then click 'Join'</td>
+    <td><a href="help/pidgin/join_private_chat.png"><img src="help/pidgin/join_private_chat.png" width="100"/></a></td>
+    </tr>
+    <tr>
+    <td>Select 'Configure Room' to set your room's configuration</td>
+    <td><a href="help/pidgin/accept_room.png"><img src="help/pidgin/accept_room.png" width="100"/></a></td>
+    </tr>
+    <tr>
+    <td>Configure your room anyway you want</td>
+    <td><a href="help/pidgin/configure_private_chat.png"><img src="help/pidgin/configure_private_chat.png" width="100"/></a></td>
+    </tr>
+    <tr>
+    <td>To enable public logging: Select Options &#187; 'Enable Logging'</td>
+    <td><a href="help/pidgin/configure_private_chat_logging.png"><img src="help/pidgin/configure_private_chat_logging.png" width="100"/></a></td>
+    </tr>
+    <tr>
+    <td>If you ever need to change your room configuration, type '/config' in the message box</td>
+    <td><a href="help/pidgin/reconfigure_private_chat.png"><img src="help/pidgin/reconfigure_private_chat.png" width="100"/></a></td>
+    </tr>
+    <tr>
+    <td>Invite uesrs to your room: Select Conversation &#187; Add</td>
+    <td><a href="help/pidgin/invite_private_chat.png"><img src="help/pidgin/invite_private_chat.png" width="100"/></a></td>
+    </tr>
+    <tr>
+    <td>To moderate your room you use the '/role' command in the message box</td>
+    <td>
+      <table border="0" cellspacing="3" cellpadding="3">
+        <thead>
+        <tr>
+          <th>Description</th>
+          <th>Command</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td nowrap>Make someone else a moderator:</td>
+          <td><pre>/role character-realm moderator</pre></td>
+        </tr>
+        <tr>
+          <td nowrap>Allow a user to talk:</td>
+          <td><pre>/role character-realm participant</pre></td>
+        </tr>
+        <tr>
+          <td nowrap>Allow a user to listen:</td>
+          <td><pre>/role character-realm vistor</pre></td>
+        </tr>
+        <tr>
+          <td nowrap>Kick a user:</td>
+          <td><pre>/role character-realm none</pre> or <pre>/kick character-realm</pre></td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    </tr>
+    <tr>
+    <td>To add additional admins you use the '/affiliate' command in the message box</td>
+    <td>
+      <table border="0" cellspacing="3" cellpadding="3">
+        <thead>
+        <tr>
+          <th>Description</th>
+          <th>Command</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td nowrap>Make someone else an admin:</td>
+          <td><pre>/affiliate character-realm admin</pre></td>
+        </tr>
+        <tr>
+          <td nowrap>Make someone else an owner:</td>
+          <td><pre>/affiliate character-realm owner</pre></td>
+        </tr>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    </tr>
+    <tr>
+      <td colspan="2">For help with any command, type '/help' in the message box</td>
+    </tr>
+    </table>
+    </div>
+    <br/><br/>
+
+  </body>
+</html>
