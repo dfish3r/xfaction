@@ -28,7 +28,7 @@
 
 var SITENAME = "xfaction.net";
 
-var BL_REALMS = [ 
+var BL_REALMS = [
   'AmanThul',
   'Barthilas',
   'Blackrock',
@@ -49,8 +49,8 @@ var BL_REALMS = [
   'Tichondrius',
   'Veknilash'
 ];
-var C_REALMS = [ 
-  'Azjol-Nerub', 
+var C_REALMS = [
+  'Azjol-Nerub',
   'Bloodscalp',
   'Boulderfist',
   'Bronzebeard',
@@ -67,7 +67,147 @@ var C_REALMS = [
   'Suramar',
   'Uldum'
 ];
-var SS_REALMS = [ 
+var E_REALMS = [
+  'Antonidas',
+  'Borean-Tundra',
+  'Cairne',
+  'DrakTharon',
+  'Drenden',
+  'Farstriders',
+  'Garrosh',
+  'Hydraxis',
+  'MokNathal',
+  'Moon-Guard',
+  'Nazgrel',
+  'Nordrassil',
+  'Queldorei',
+  'Rivendare',
+  'Shandris',
+  'Tortheldrin',
+  'Wyrmrest-Accord'
+];
+var N_REALMS = [
+  'Aerie-Peak',
+  'Altar-of-Storms',
+  'Alterac-Mountains',
+  'Anvilmar',
+  'Arygos',
+  'Blackwing-Lair',
+  'Deathwing',
+  'Demon-Soul',
+  'Doomhammer',
+  'Gnomeregan',
+  'Icecrown',
+  'Jaedenar',
+  'KelThuzad',
+  'Lethon',
+  'Onyxia',
+  'Sentinels',
+  'Tanaris',
+  'The-Venture-Co',
+  'Uldaman',
+  'Undermine'
+];
+var RAM_REALMS = [
+  'Alexstrasza',
+  'Alleria',
+  'Balnazzar',
+  'Blackhand',
+  'Chogall',
+  'Destromath',
+  'Dethecus',
+  'Garona',
+  'Gorgonnash',
+  'Guldan',
+  'Hellscream',
+  'Illidan',
+  'Kaelthas',
+  'Kirin-Tor',
+  'Ravencrest',
+  'Spinebreaker',
+  'Stormreaver',
+  'Whisperwind'
+];
+var REC_REALMS = [
+  'Arathor',
+  'Bonechewer',
+  'Dragonmaw',
+  'EldreThalas',
+  'Firetree',
+  'Frostmane',
+  'Gurubashi',
+  'Nathrezim',
+  'Scarlet-Crusade',
+  'Shadow-Council',
+  'Shadowsong',
+  'Silvermoon',
+  'Skywall',
+  'Smolderthorn',
+  'Spirestone',
+  'Terenas',
+  'Windrunner'
+];
+var RET_REALMS = [
+  'Area-52',
+  'Auchindoun',
+  'Azuremyst',
+  'Blades-Edge',
+  'Blood-Furnace',
+  'Coilfang',
+  'Dawnbringer',
+  'Exodar',
+  'Fizzcrank',
+  'Galakrond',
+  'Ghostlands',
+  'Grizzly-Hills',
+  'Shattered-Halls',
+  'Terokkar',
+  'The-Scryers',
+  'The-Underbog',
+  'Velen',
+  'Zangarmarsh'
+];
+var RU_REALMS = [
+  'Argent-Dawn',
+  'Arthas',
+  'Azgalor',
+  'Bleeding-Hollow',
+  'Bloodhoof',
+  'Durotan',
+  'Elune',
+  'Lothar',
+  'Madoran',
+  'Magtheridon',
+  'Mannoroth',
+  'Medivh',
+  'Shattered-Hand',
+  'Skullcrusher',
+  'Stormrage',
+  'Trollbane',
+  'Warsong',
+  'Zuljin'
+];
+var SHA_REALMS = [
+  'Agamaggan',
+  'Azshara',
+  'Baelgun',
+  'Dark-Iron',
+  'Detheroc',
+  'Emerald-Dream',
+  'Greymane',
+  'Kalecgos',
+  'Lightninghoof',
+  'Maelstrom',
+  'Malfurion',
+  'Moonrunner',
+  'Nazjatar',
+  'Sargeras',
+  'Staghelm',
+  'Twisting-Nether',
+  'Ursin',
+  'Wildhammer'
+];
+var SS_REALMS = [
   'Andorhal',
   'Anetheron',
   'Archimonde',
@@ -89,10 +229,85 @@ var SS_REALMS = [
   'Ysondre',
   'Zuluhed'
 ];
+var VEN_REALMS = [
+  'Aegwynn',
+  'Akama',
+  'Chromaggus',
+  'Drakthul',
+  'Draka',
+  'Eitrigg',
+  'Garithos',
+  'Gundrak',
+  'Hakkar',
+  'JubeiThos',
+  'Khaz-Modan',
+  'Korgath',
+  'Kul-Tiras',
+  'Malorne',
+  'Mugthol',
+  'Muradin',
+  'Rexxar',
+  'Runetotem',
+  'Saurfang',
+  'Thorium-Brotherhood'
+];
+var VIN_REALMS = [
+  'Aggramar',
+  'Burning-Blade',
+  'Burning-Legion',
+  'Earthen-Ring',
+  'Eonar',
+  'Eredar',
+  'Gilneas',
+  'Gorefiend',
+  'Kargath',
+  'Laughing-Skull',
+  'Lightnings-Blade',
+  'Llane',
+  'Malygos',
+  'Shadow-Moon',
+  'Thunderhorn',
+  'Thunderlord',
+  'Drakkari',
+  'QuelThalas',
+  'Ragnaros'
+];
+var W_REALMS = [
+  'Anubarak',
+  'Blackwater-Raiders',
+  'Bladefist',
+  'Cenarion-Circle',
+  'Cenarius',
+  'Darrowmere',
+  'Echo-Isles',
+  'Fenris',
+  'Hyjal',
+  'Korialstraaz',
+  'Lightbringer',
+  'Maiev',
+  'Misha',
+  'Ravenholdt',
+  'Shuhalo',
+  'Sisters-of-Elune',
+  'The-Forgotten-Coast',
+  'Uther',
+  'Vashj',
+  'Winterhoof'
+];
 var REALMS = new Array();
 REALMS = REALMS.concat(BL_REALMS);
 REALMS = REALMS.concat(C_REALMS);
+REALMS = REALMS.concat(E_REALMS);
+REALMS = REALMS.concat(N_REALMS);
+REALMS = REALMS.concat(RAM_REALMS);
+REALMS = REALMS.concat(REC_REALMS);
+REALMS = REALMS.concat(RET_REALMS);
+REALMS = REALMS.concat(RU_REALMS);
+REALMS = REALMS.concat(SHA_REALMS);
 REALMS = REALMS.concat(SS_REALMS);
+REALMS = REALMS.concat(VEN_REALMS);
+REALMS = REALMS.concat(VIN_REALMS);
+REALMS = REALMS.concat(W_REALMS);
 REALMS.sort();
 
 /* BACKENDS
@@ -105,7 +320,7 @@ REALMS.sort();
  *
  * Optional object fields:
  * description     - a human readable description for this backend
- * servers_allowed - array of jabber server addresses users can connect to 
+ * servers_allowed - array of jabber server addresses users can connect to
  *                   using this backend
  *
  * If BACKENDS contains more than one entry users may choose from a
@@ -118,7 +333,7 @@ REALMS.sort();
  * If 'servers_allowed' contains one single element no option is
  * presented to user.
  */
-var BACKENDS = 
+var BACKENDS =
 [
 		{
 			name:"Native Binding",
