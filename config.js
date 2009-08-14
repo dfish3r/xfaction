@@ -26,8 +26,13 @@
  * Have a look at the README for hints and troubleshooting!
  */
 
-var SITENAME = "xfaction.net";
+if (top.location.pathname.match(/\/eu\//)) {
+  var SITENAME = "eu.xfaction.net";
+} else {
+  var SITENAME = "xfaction.net";
+}
 
+// US Realms
 var BL_REALMS = [
   'AmanThul',
   'Barthilas',
@@ -79,6 +84,7 @@ var E_REALMS = [
   'MokNathal',
   'Moon-Guard',
   'Nazgrel',
+  'Nesingwary',
   'Nordrassil',
   'Queldorei',
   'Rivendare',
@@ -294,21 +300,382 @@ var W_REALMS = [
   'Vashj',
   'Winterhoof'
 ];
-var REALMS = new Array();
-REALMS = REALMS.concat(BL_REALMS);
-REALMS = REALMS.concat(C_REALMS);
-REALMS = REALMS.concat(E_REALMS);
-REALMS = REALMS.concat(N_REALMS);
-REALMS = REALMS.concat(RAM_REALMS);
-REALMS = REALMS.concat(REC_REALMS);
-REALMS = REALMS.concat(RET_REALMS);
-REALMS = REALMS.concat(RU_REALMS);
-REALMS = REALMS.concat(SHA_REALMS);
-REALMS = REALMS.concat(SS_REALMS);
-REALMS = REALMS.concat(VEN_REALMS);
-REALMS = REALMS.concat(VIN_REALMS);
-REALMS = REALMS.concat(W_REALMS);
-REALMS.sort();
+var US_REALMS = new Array();
+US_REALMS = US_REALMS.concat(BL_REALMS);
+US_REALMS = US_REALMS.concat(C_REALMS);
+US_REALMS = US_REALMS.concat(E_REALMS);
+US_REALMS = US_REALMS.concat(N_REALMS);
+US_REALMS = US_REALMS.concat(RAM_REALMS);
+US_REALMS = US_REALMS.concat(REC_REALMS);
+US_REALMS = US_REALMS.concat(RET_REALMS);
+US_REALMS = US_REALMS.concat(RU_REALMS);
+US_REALMS = US_REALMS.concat(SHA_REALMS);
+US_REALMS = US_REALMS.concat(SS_REALMS);
+US_REALMS = US_REALMS.concat(VEN_REALMS);
+US_REALMS = US_REALMS.concat(VIN_REALMS);
+US_REALMS = US_REALMS.concat(W_REALMS);
+US_REALMS.sort();
+
+// EU English Realms
+var EU_EN_BLA_REALMS = [
+  'Agamaggan',
+  'Aggramar',
+  'AlAkir',
+  'Arathor',
+  'Aszune',
+  'Azjol-Nerub',
+  'Bladefist',
+  'Bloodhoof',
+  'Bloodscalp',
+  'Burning-Blade',
+  'Doomhammer',
+  'Draenor',
+  'Dragonblight',
+  'Emerald-Dream',
+  'Sunstrider',
+  'Twilights-Hammer',
+  'Zenedar'
+];
+var EU_EN_BL_REALMS = [
+  'Argent-Dawn',
+  'Burning-Legion',
+  'Crushridge',
+  'Daggerspine',
+  'Deathwing',
+  'Dragonmaw',
+  'Dunemaul'
+];
+var EU_EN_CY_REALMS = [
+  'Earthen-Ring',
+  'Ravencrest',
+  'Runetotem',
+  'Shadowsong',
+  'Shattered-Hand',
+  'Silvermoon',
+  'Skullcrusher',
+  'Spinebreaker',
+  'Stormrage',
+  'Stormreaver',
+  'Stormscale',
+  'Terenas',
+  'Thunderhorn',
+  'Turalyon'
+];
+var EU_EN_CO_REALMS = [
+  'Balnazzar',
+  'Genjuros',
+  'Hellscream',
+  'Laughing-Skull',
+  'Magtheridon',
+  'Nordrassil',
+  'QuelThalas'
+];
+var EU_EN_RA_REALMS = [
+  'Bloodfeather',
+  'Darksorrow',
+  'Defias-Brotherhood',
+  'Frostwhisper',
+  'Haomarush',
+  'Lightnings-Blade',
+  'Neptulon',
+  'Ragnaros',
+  'Sylvanas',
+  'The-Maelstrom',
+  'The-Venture-Co.',
+  'Twisting-Nether',
+  'Vashj'
+];
+var EU_EN_RE_REALMS = [
+  'AhnQiraj',
+  'Bronzebeard',
+  'Chromaggus',
+  'Dentarg',
+  'Drakthul',
+  'Emeriss',
+  'Executus',
+  'Khadgar',
+  'Kul-Tiras',
+  'Mazrigos',
+  'Moonglade',
+  'Talnivarr',
+  'Trollbane'
+];
+var EU_EN_RU_REALMS = [
+  'Azuremyst',
+  'Blades-Edge',
+  'Hakkar',
+  'Scarshield-Legion',
+  'Steamwheedle-Cartel',
+  'Terokkar',
+  'Xavius'
+];
+var EU_EN_MI_REALMS = [
+  'Aerie-Peak',
+  'Boulderfist',
+  'Chamber-of-the-Aspects',
+  'Eonar',
+  'Frostmane',
+  'Grim-Batol',
+  'Jaedenar',
+  'Kazzak',
+  'Kilrogg',
+  'Outland',
+  'Ravenholdt',
+  'Saurfang',
+  'Tarren-Mill',
+  'Veknilash',
+  'Wildhammer'
+];
+var EU_EN_NF_REALMS = [
+  'Alonsus',
+  'Anachronos',
+  'Bronze-Dragonflight',
+  'Burning-Steppes',
+  'Darkmoon-Faire',
+  'Darkspear',
+  'Korgall',
+  'Lightbringer'
+];
+var EU_EN_VI_REALMS = [
+  'Auchindoun',
+  'Ghostlands',
+  'Hellfire',
+  'Karazhan',
+  'Nagrand',
+  'Shattered-Halls',
+  'Sporeggar',
+  'The-Shatar'
+];
+
+// EU French Realms
+var EU_FR_CA_REALMS = [
+  'Archimonde',
+  'Chogall',
+  'Dalaran',
+  'Elune',
+  'Hyjal',
+  'Illidan',
+  'Kaelthas',
+  'Kirin-Tor',
+  'Nerzhul',
+  'Sargeras',
+  'Sinstralis'
+];
+var EU_FR_FE_REALMS = [
+  'Conseil-des-Ombres',
+  'DrekThar',
+  'Khaz-Modan',
+  'Les-Sentinelles',
+  'Rashgarroth',
+  'ThrokFeroth',
+  'Varimathras'
+];
+var EU_FR_VE_REALMS = [
+  'Arathi',
+  'Culte-de-la-Rive-noire',
+  'EldreThalas',
+  'Krasus',
+  'Suramar',
+  'Ysondre'
+];
+var EU_FR_NE_REALMS = [
+  'Arak-arahm',
+  'Confrérie-du-Thorium',
+  'Eitrigg',
+  'Garona',
+  'La-Croisade-écarlate',
+  'Medivh',
+  'Uldaman',
+  'Voljin'
+];
+var EU_FR_RE_REALMS = [
+  'Chants-éternels',
+  'Les-Clairvoyants',
+  'Marécage-de-Zangar',
+  'Naxxramas',
+  'Temple-noir'
+];
+
+// EU Deutsch Realms
+var EU_DE_TO_REALMS = [
+  'Alexstrasza',
+  'Alleria',
+  'Antonidas',
+  'Baelgun',
+  'Blackhand'
+];
+var EU_DE_BL_REALMS = [
+  'Aegwynn',
+  'Destromath',
+  'Die-Silberne-Hand',
+  'Eredar',
+  'Frostmourne',
+  'Frostwolf',
+  'Gorgonnash',
+  'Guldan',
+  'KelThuzad',
+  'KilJaeden',
+  'Madmortem',
+  'MalGanis',
+  'Malfurion',
+  'Mannoroth',
+  'Nathrezim',
+  'Nozdormu',
+  'Perenolde',
+  'Proudmoore',
+  'Zirkel-des-Cenarius',
+  'Zuluhed'
+];
+var EU_DE_RA_REALMS = [
+  'AmanThul',
+  'Anubarak',
+  'Das-Syndikat',
+  'Der-Rat-von-Dalaran',
+  'Dun-Morogh',
+  'Kragjin',
+  'Kult-der-Verdammten',
+  'Nerathor',
+  'Onyxia',
+  'Senjin',
+  'Terrordar',
+  'Theradras',
+  'Wrathbringer'
+];
+var EU_DE_VE_REALMS = [
+  'Gilneas',
+  'Kargath',
+  'Khazgoroth',
+  'Lothar',
+  'Malygos',
+  'Rexxar',
+  'Ysera'
+];
+var EU_DE_GL_REALMS = [
+  'Anetheron',
+  'Arthas',
+  'Azshara',
+  'Blackmoore',
+  'Blackrock',
+  'Die-Arguswacht',
+  'Die-ewige-Wacht',
+  'Die-Todeskrallen',
+  'Durotan',
+  'Nazjatar',
+  'Nefarian',
+  'Thrall',
+  'Tichondrius'
+];
+var EU_DE_SC_REALMS = [
+  'Ambossar',
+  'Dalvengyr',
+  'Der-abyssische-Rat',
+  'Die-Nachtwache',
+  'Lordaeron',
+  'Malorne',
+  'Mugthol',
+  'Rajaxx',
+  'Taerar',
+  'Tirion',
+  'Ulduar',
+  'Veklor'
+];
+var EU_DE_HI_REALMS = [
+  'Area-52',
+  'Arygos',
+  'Der-Mithrilorden',
+  'Dethecus',
+  'Forscherliga',
+  'Garrosh',
+  'Norgannon',
+  'Teldrassil',
+  'Todeswache',
+  'UnGoro'
+];
+var EU_DE_ST_REALMS = [
+  'Blutkessel',
+  'Das-Konsortium',
+  'Die-Aldor',
+  'Echsenkessel',
+  'Festung-der-Stürme',
+  'Nethersturm',
+  'Shattrath'
+];
+
+// EU Spanish Realms
+var EU_ESP_CR_REALMS = [
+  'Colinas-Pardas',
+  'CThun',
+  'Dun-Modr',
+  'Los-Errantes',
+  'Minahonda',
+  'Sanguino',
+  'Shendralar',
+  'Tyrande',
+  'Uldum',
+  'ZulJin',
+  'Próximamente'
+];
+
+// EU Russian Realms
+var EU_RU_WK_REALMS = [
+  'Азурегос',
+  'Пиратская-бухта',
+  'Ясеневый-лес',
+  'Вечная-Песня',
+  'Термоштепсель',
+  'Страж-смерти',
+  'Гордунни',
+  'Гром',
+  'Король-лич',
+  'Свежеватель'
+];
+var EU_RU_BN_REALMS = [
+  'Седогрив',
+  'Подземье',
+  'Дракономор',
+  'Разувий',
+  'Ткач-Смерти'
+];
+
+var EU_REALMS = new Array();
+EU_REALMS = EU_REALMS.concat(EU_EN_BLA_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_BL_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_CY_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_CO_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_RA_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_RE_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_RU_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_MI_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_NF_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_EN_VI_REALMS);
+
+EU_REALMS = EU_REALMS.concat(EU_FR_CA_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_FR_FE_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_FR_VE_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_FR_NE_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_FR_RE_REALMS);
+
+EU_REALMS = EU_REALMS.concat(EU_DE_TO_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_BL_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_RA_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_VE_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_GL_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_SC_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_HI_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_DE_ST_REALMS);
+
+EU_REALMS = EU_REALMS.concat(EU_ESP_CR_REALMS);
+
+EU_REALMS = EU_REALMS.concat(EU_RU_WK_REALMS);
+EU_REALMS = EU_REALMS.concat(EU_RU_BN_REALMS);
+
+EU_REALMS.sort();
+
+if (SITENAME == 'eu.xfaction.net') {
+  var REALMS = EU_REALMS;
+} else {
+  var REALMS = US_REALMS;
+}
 
 /* BACKENDS
  * Array of objects each describing a backend.
@@ -389,7 +756,7 @@ function createCookie(name,value,days) {
   var date = new Date();
   date.setTime(date.getTime()+(days*24*60*60*1000));
   var expires = "; expires="+date.toGMTString();
-  document.cookie = name+"="+value+expires+"; path=/";
+  document.cookie = name+"="+encodeURIComponent(value)+expires+"; path=/";
 }
 
 function readCookie(name) {
@@ -398,7 +765,7 @@ function readCookie(name) {
   for(var i=0;i < ca.length;i++) {
     var c = ca[i];
     while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length,c.length));
   }
   return null;
 }
