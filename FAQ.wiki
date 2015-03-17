@@ -1,0 +1,39 @@
+#summary FAQ for Xfaction.net
+
+= FAQ =
+
+* Why does this site exist? *
+  * We wanted a way to coordinate conversation and play times with characters on other realms and factions. The simplest way for us to do so was to develop a real time text based web site.
+
+* Why not use ventrilo, teamspeak, etc? *
+  * Text is lower bandwidth, doesn't require that you be "on" it all the time to see the messages and many players appreciate the anonymity that text communication provides.
+
+
+* What technologies does this site use? *
+  * Xfaction leverages Apache, Jabber, and JWChat.
+
+* What browsers are supported?*
+  * Windows XP/2000/ME/98/95:
+    * MS Internext Explorer >= version 5.0
+    * Netscape version 6 & 7
+    * Mozilla >=version 1.0.2
+
+  * Mac OS X:
+    * Mozilla >=version 1.0.2
+    * Camino 0.7
+
+  * Linux:
+    * Mozilla >=version 1.0.2
+
+
+* I don't like typing my character name everytime I log in.*
+  * Set your browser to allow cookies from xfaction.net. The character name and realm from your last successful log in will be used the next time you visit www.xfaction.net..
+
+* Someone is harrassing me.*
+  * Send mail to webmaster and be sure to include your character name and a log of the harassment.
+
+* Someone has registered a character that I own.*
+  * Send mail to webmaster and be sure to include your character name and realm.
+
+* You didn't answer my question.*
+  * Send mail to webmaster.

@@ -1,0 +1,27 @@
+#summary The ground rules for using Xfaction.
+
+= Ground Rules =
+
+We will strive to keep the communication in chat rooms open and friendly but we can't be on at all times and reviewing all messages. Any and all messages expressed are the views of the author and neither the owners of Xfaction.net nor the developers of the software used to run Xfaction.net will be held responsible for the content of any message.
+
+Please [https://www.xfaction.net/feedback.html contact] the site administrators if you see bad behavior in the chat rooms or have any questions or comments:
+
+The owners of Xfaction.net reserve the right to silence, kick, or ban any users of Xfaction.net at any time or for any reason.
+
+
+==The Rules==
+ # Stay on topic, this site is about building community and finding good games.
+  # Do not write about how to hack, cheat, or violate the Blizzard Terms Of Service.
+  # Do not ask for or offer illegal services or goods.
+ # Be nice, or be quiet.
+  # Everyone is inconsiderate from time to time but persistent rudeness will not be tolerated.
+  # Personal attacks or "jokes" regarding race, gender, sexual preference, etc. will not be tolerated and may result in immediate action.
+  # No links to any offensive material. If you would be embarrassed to wear it on a t-shirt at a family gathering don't put it on Xfaction.
+ # Keep in mind that everything written on Xfaction, in every kind of chat, is recorded.
+  # The full transcript of every group chat is always available to the entire world
+   * http://www.xfaction.net/muc_log/
+  # The transcripts are indexed by search engines such as Google.
+  # Watch your language, because everything you say is going to end up permanently associated with you the moment you say it, thanks to the magic of Google.
+ # Limit personal information to in-game identities.
+  # We do not want to know any personal details regarding you, or anyone else.
+  # Sharing personal information on the Internet is a very bad idea.
